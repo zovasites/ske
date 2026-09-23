@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 110" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skeBrandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B2545" />
+      <stop offset="100%" stop-color="#134E7A" />
+    </linearGradient>
+    <linearGradient id="skeAccentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D32F2F" />
+      <stop offset="100%" stop-color="#E53935" />
+    </linearGradient>
+    <filter id="softGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0B2545" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <!-- Logo Mark Group -->
+  <g transform="translate(10, 8)" filter="url(#softGlow)">
+    <!-- Hexagonal Precision Frame -->
+    <polygon points="46,5 82,26 82,68 46,89 10,68 10,26" fill="url(#skeBrandGrad)" />
+    
+    <!-- Inner Weave / Loom Shuttle Graphic -->
+    <!-- Warp vertical threads -->
+    <line x1="32" y1="26" x2="32" y2="68" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.85" />
+    <line x1="46" y1="20" x2="46" y2="74" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" />
+    <line x1="60" y1="26" x2="60" y2="68" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.85" />
+
+    <!-- Weft Horizontal Dynamic Wave / Shuttle Line -->
+    <path d="M 20 40 Q 35 30, 46 47 T 72 54" fill="none" stroke="url(#skeAccentGrad)" stroke-width="4.5" stroke-linecap="round" />
+    
+    <!-- Center SKE Dynamic Textile Monogram -->
+    <circle cx="46" cy="47" r="5" fill="#FFFFFF" />
+    <circle cx="46" cy="47" r="2.5" fill="#D32F2F" />
+
+    <!-- Stylized Corner Accent -->
+    <polygon points="76,23 88,30 84,38 72,31" fill="#D32F2F" />
+  </g>
+
+  <!-- Typography Group -->
+  <g transform="translate(112, 0)">
+    <!-- Company Name Primary -->
+    <text x="0" y="44" font-family="'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="27" font-weight="900" letter-spacing="1.2" fill="#0B2545">
+      SREE KRISHNA
+    </text>
+    <text x="238" y="44" font-family="'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="27" font-weight="800" letter-spacing="1.2" fill="#D32F2F">
+      ENTERPRIZES
+    </text>
+
+    <!-- Divider Subline -->
+    <line x1="0" y1="56" x2="395" y2="56" stroke="#E2E8F0" stroke-width="1.5" />
+    <rect x="0" y="55" width="48" height="3.5" rx="1.5" fill="#0B2545" />
+    <rect x="52" y="55" width="22" height="3.5" rx="1.5" fill="#D32F2F" />
+
+    <!-- Business Tagline -->
+    <text x="0" y="78" font-family="'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="12.5" font-weight="700" letter-spacing="3.5" fill="#475569">
+      GLOBAL TRADERS FOR TEXTILE
+    </text>
+
+    <!-- Location & Discipline Badge -->
+    <text x="0" y="96" font-family="'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" letter-spacing="1.5" fill="#64748B">
+      TEXTILE MACHINERY &amp; WEAVING ACCESSORIES • ERODE, INDIA
+    </text>
+  </g>
+</svg>

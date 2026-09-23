@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#EDF2F7" />
+    </linearGradient>
+    <pattern id="dotGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#CBD5E1" />
+    </pattern>
+  </defs>
+  <rect width="600" height="450" fill="url(#bgGrad)" />
+  <rect width="600" height="450" fill="url(#dotGrid)" opacity="0.6" />
+  
+  <!-- Subtle border frame -->
+  <rect x="20" y="20" width="560" height="410" rx="12" fill="none" stroke="#E2E8F0" stroke-width="2" stroke-dasharray="8 8" />
+
+  <!-- Industrial Icon Silhouette (Loom / Machine outline) -->
+  <g transform="translate(240, 110)">
+    <rect x="0" y="0" width="120" height="90" rx="8" fill="#FFFFFF" stroke="#0B2545" stroke-width="2.5" />
+    <!-- Gear / Spool -->
+    <circle cx="35" cy="45" r="18" fill="#E2E8F0" stroke="#0B2545" stroke-width="2" />
+    <circle cx="35" cy="45" r="6" fill="#0B2545" />
+    <!-- Roller -->
+    <rect x="65" y="25" width="40" height="12" rx="4" fill="#D32F2F" opacity="0.8" />
+    <rect x="65" y="45" width="40" height="12" rx="4" fill="#0B2545" opacity="0.8" />
+    <line x1="15" y1="75" x2="105" y2="75" stroke="#0B2545" stroke-width="3" stroke-linecap="round" />
+  </g>
+
+  <!-- Notice Badge -->
+  <g transform="translate(160, 245)">
+    <rect x="0" y="0" width="280" height="34" rx="17" fill="#0B2545" />
+    <text x="140" y="22" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
+      PRODUCT IMAGE COMING SOON
+    </text>
+  </g>
+
+  <text x="300" y="315" font-family="'Inter', system-ui, sans-serif" font-size="15" font-weight="600" fill="#0B2545" text-anchor="middle">
+    Sree Krishna Enterprizes
+  </text>
+  <text x="300" y="340" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="500" fill="#64748B" text-anchor="middle">
+    Specification &amp; Quote available on request
+  </text>
+</svg>

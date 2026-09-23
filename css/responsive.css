@@ -1,0 +1,854 @@
+/**
+ * SREE KRISHNA ENTERPRIZES - RESPONSIVE & MULTI-ZOOM SCALING ENGINE
+ * Optimized for natural browser zooming (100%, 90%, 80%, 75%, 67%, 50%, 33%, 25%)
+ * and seamless cross-device responsiveness across:
+ * - 🖥️ Ultra-Wide / 4K / High-Zoom-Out (2000px - 4000px+)
+ * - 🖥️ Large Desktop / 75%-80% Zoom (1441px - 1999px)
+ * - 💻 Standard Laptop & Desktop (1025px - 1440px)
+ * - 📱 Tablet Landscape (769px - 1024px)
+ * - 📱 Tablet Portrait & Phablets (481px - 768px)
+ * - 📱 Standard Mobile (376px - 480px)
+ * - 📱 Small Mobile (320px - 375px)
+ */
+
+/* ==========================================================================
+   0. Global Base Scaling & Full-Bleed Alignment
+   ========================================================================== */
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.top-bar,
+.header-brand-bar,
+.header-nav-bar,
+.section,
+.spares-section,
+.footer {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ensure all flex & grid items shrink safely without forcing horizontal overflow */
+.hero-content,
+.hero-media-wrapper,
+.about-text,
+.owner-card,
+.product-card,
+.loom-showcase-card,
+.trust-card,
+.why-card,
+.spares-brand-card,
+.global-reach-wrap,
+.quote-wrapper,
+.contact-info-card {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   1. Ultra-Wide & Deep Zoom-Out Scaling (min-width: 2000px)
+   ========================================================================== */
+@media screen and (min-width: 2000px) {
+  .container,
+  .spares-container {
+    max-width: 1480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+    gap: 2.5rem;
+  }
+
+  .global-countries-grid {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1.15rem;
+  }
+}
+
+/* ==========================================================================
+   2. Large Desktop & Moderate Zoom-Out (1441px - 1999px)
+   ========================================================================== */
+@media screen and (min-width: 1441px) {
+  .container,
+  .spares-container {
+    max-width: var(--container-max-width-xl, 1360px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1.2fr 0.95fr;
+    gap: 4.5rem;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.25rem;
+  }
+
+  .accessories-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .why-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .trust-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1.5fr 1fr 1fr 1.25fr;
+    gap: 3rem;
+  }
+
+  .global-countries-grid {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.85rem;
+  }
+}
+
+/* ==========================================================================
+   3. Medium Laptop & Compact Desktop (max-width: 1200px)
+   ========================================================================== */
+@media screen and (max-width: 1200px) {
+  .nav-list {
+    gap: 0.65rem;
+  }
+
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 0.85rem 0.05rem;
+    white-space: nowrap;
+  }
+
+  .brand-official-logo {
+    height: 74px;
+  }
+
+  .brand-main-title {
+    font-size: 1.95rem;
+  }
+
+  .global-countries-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* ==========================================================================
+   4. Tablet Landscape (max-width: 1024px)
+   ========================================================================== */
+@media screen and (max-width: 1024px) {
+  .nav-list {
+    gap: 0.4rem;
+  }
+
+  .nav-link {
+    font-size: 0.735rem;
+    padding: 0.8rem 0.05rem;
+    white-space: nowrap;
+  }
+
+  .nav-actions .btn-secondary {
+    padding: 0.38rem 0.65rem;
+    font-size: 0.7rem;
+  }
+
+  .brand-official-logo {
+    height: 68px;
+  }
+
+  .brand-main-title {
+    font-size: 1.75rem;
+  }
+
+  .brand-tagline-text {
+    font-size: 0.75rem;
+  }
+
+  .header-brand-features .header-feature-card:nth-child(2) {
+    display: none;
+  }
+
+  .header-feature-card {
+    padding: 0.4rem 0.65rem;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2.75rem;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .hero-cta-group {
+    justify-content: center;
+  }
+
+  .hero-contact-strip {
+    justify-content: center;
+  }
+
+  .hero-media-wrapper {
+    max-width: 580px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .trust-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.75rem;
+  }
+
+  .owner-card {
+    max-width: 480px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .looms-showcase-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .accessories-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .global-reach-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2.5rem;
+  }
+
+  .global-reach-wrap {
+    padding: 3rem 2rem;
+  }
+
+  .global-countries-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+
+  .global-origin-badge {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+/* ==========================================================================
+   5. Tablet Portrait & Mobile Drawer Breakpoint (max-width: 768px)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+  :root {
+    --header-height: 74px;
+  }
+
+  .top-bar {
+    display: none;
+  }
+
+  .header-brand-bar {
+    padding: 0.5rem 0;
+  }
+
+  .header-brand-features {
+    display: none;
+  }
+
+  .brand-official-logo {
+    height: 56px;
+  }
+
+  .brand-main-title {
+    font-size: 1.35rem;
+  }
+
+  .brand-tagline-text {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+  }
+
+  .header-nav-bar {
+    min-height: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+  }
+
+  .nav-bar-inner {
+    min-height: 0;
+    padding: 0;
+  }
+
+  .mobile-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    color: var(--brand-primary);
+    background: var(--brand-light);
+    border: 1px solid var(--border-color);
+  }
+
+  /* Slide-in Navigation Drawer */
+  .main-nav {
+    position: fixed;
+    top: 74px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #FFFFFF;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 1.5rem clamp(1rem, 4vw, 1.5rem);
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    gap: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    box-shadow: var(--shadow-xl);
+    transform: translateX(100%);
+    transition: transform var(--transition-normal);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 998;
+  }
+
+  .main-nav.mobile-open {
+    transform: translateX(0);
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .nav-link {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    width: 100%;
+    padding: 0.75rem 0.5rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color-light);
+    border-radius: var(--radius-sm);
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--brand-primary);
+    background-color: var(--brand-primary-light);
+    padding-left: 0.85rem;
+  }
+
+  .nav-link::after {
+    display: none;
+  }
+
+  .nav-link-ebrochure {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-link-ebrochure .nav-brochure-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .nav-actions {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .nav-actions .btn-secondary {
+    width: 100%;
+    text-align: center;
+    padding: 0.85rem 1.5rem;
+    font-size: 0.95rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .section {
+    padding: 3.5rem 0;
+  }
+
+  .hero-title {
+    font-size: clamp(1.85rem, 5.5vw, 2.5rem);
+    margin: 1rem 0;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-badge-float {
+    display: none;
+  }
+
+  .catalog-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .category-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin;
+    gap: 0.5rem;
+  }
+
+  .category-tabs::-webkit-scrollbar {
+    height: 3px;
+  }
+
+  .category-tabs::-webkit-scrollbar-thumb {
+    background: var(--brand-primary-light);
+    border-radius: 3px;
+  }
+
+  .category-tab-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 0.5rem 0.95rem;
+    font-size: 0.8125rem;
+  }
+
+  .catalog-search-wrap {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .product-card {
+    max-width: 480px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .loom-showcase-card {
+    padding: 1.5rem;
+  }
+
+  .accessories-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-features {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .spares-flow-container::before {
+    left: 1.75rem;
+  }
+
+  .spares-brand-card {
+    padding: 1rem;
+    gap: 0.875rem;
+  }
+
+  .spares-brand-num {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 0.75rem;
+  }
+
+  .spares-brand-name {
+    font-size: 1rem;
+  }
+
+  .spares-brand-desc {
+    font-size: 0.8125rem;
+  }
+
+  .spares-viewer-topbar {
+    padding: 0.75rem 1rem;
+    gap: 0.75rem;
+  }
+
+  .spares-viewer-stage {
+    min-height: 320px;
+    max-height: 65vh;
+    padding: 0.75rem;
+  }
+
+  .spares-stage-nav-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .spares-stage-nav-btn.prev {
+    left: 0.5rem;
+  }
+
+  .spares-stage-nav-btn.next {
+    right: 0.5rem;
+  }
+
+  .spares-viewer-footer {
+    padding: 0.875rem 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.875rem;
+  }
+
+  .spares-enquiry-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .spares-whatsapp-btn,
+  .spares-quote-btn {
+    flex: 1;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.65rem 1rem;
+  }
+
+  .global-countries-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+
+  .global-country-chip {
+    padding: 0.45rem 0.6rem;
+  }
+
+  .country-chip-name {
+    font-size: 0.75rem;
+  }
+
+  .quote-wrapper {
+    padding: 2rem 1.25rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .form-group.full-width {
+    grid-column: span 1;
+  }
+
+  .form-control {
+    font-size: 1rem;
+    min-height: 46px;
+  }
+
+  .contact-info-card {
+    padding: 1.5rem;
+  }
+
+  .contact-buttons-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-bottom-bar {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .footer-legal-links {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+  }
+
+  .modal-overlay {
+    padding: 0.75rem;
+  }
+
+  .modal-dialog {
+    max-height: 92vh;
+    border-radius: var(--radius-lg);
+  }
+
+  .modal-header {
+    padding: 1rem 1.25rem;
+  }
+
+  .modal-title {
+    font-size: 1.15rem;
+  }
+
+  .modal-body {
+    padding: 1.25rem;
+  }
+
+  .floating-whatsapp {
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+  }
+
+  .floating-whatsapp svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* ==========================================================================
+   6. Standard Mobile (max-width: 480px)
+   ========================================================================== */
+@media screen and (max-width: 480px) {
+  .header-brand-bar {
+    padding: 0.4rem 0;
+  }
+
+  .brand-official-logo {
+    height: 48px;
+  }
+
+  .brand-main-title {
+    font-size: 1.2rem;
+  }
+
+  .brand-tagline-text {
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  .btn {
+    min-height: 44px;
+  }
+
+  .btn-lg {
+    font-size: 0.9375rem;
+    padding: 0.8rem 1.25rem;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+  }
+
+  .hero-contact-strip {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .trust-grid {
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+  }
+
+  .trust-card {
+    padding: 1.25rem;
+  }
+
+  .product-card-actions {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .product-card-actions .btn-whatsapp-sm {
+    grid-column: span 1;
+  }
+
+  .product-card-actions .btn {
+    width: 100%;
+  }
+
+  .spares-viewer-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .spares-viewer-title-block {
+    text-align: left;
+  }
+
+  .spares-viewer-controls-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .spares-submodel-nav {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .spares-submodel-pill {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.75rem;
+  }
+
+  .spares-viewer-stage {
+    min-height: 260px;
+    max-height: 55vh;
+  }
+
+  .spares-stage-nav-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .spares-enquiry-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .spares-whatsapp-btn,
+  .spares-quote-btn {
+    width: 100%;
+  }
+
+  .global-countries-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .global-reach-wrap {
+    padding: 2.25rem 1rem;
+  }
+
+  .global-title {
+    font-size: 1.65rem;
+  }
+
+  .global-origin-badge {
+    padding: 0.6rem 0.85rem;
+    gap: 0.5rem;
+  }
+
+  .origin-text-label {
+    font-size: 0.8125rem;
+  }
+
+  .owner-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .owner-img-wrap {
+    max-width: 240px;
+    height: 240px;
+  }
+}
+
+/* ==========================================================================
+   7. Ultra-Small Mobile (max-width: 360px)
+   ========================================================================== */
+@media screen and (max-width: 360px) {
+  .brand-logo-link {
+    gap: 0.65rem;
+  }
+
+  .brand-official-logo {
+    height: 42px;
+  }
+
+  .brand-main-title {
+    font-size: 1.05rem;
+  }
+
+  .brand-tagline-text {
+    font-size: 0.52rem;
+    letter-spacing: 0.05em;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 1.55rem;
+  }
+
+  .global-countries-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .owner-img-wrap {
+    max-width: 200px;
+    height: 200px;
+  }
+}
