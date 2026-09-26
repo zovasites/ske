@@ -411,6 +411,7 @@ button, input, select, textarea {
   object-fit: contain;
   filter: drop-shadow(0 2px 6px rgba(76, 29, 149, 0.15));
   transition: transform var(--transition-fast);
+  mix-blend-mode: multiply;
 }
 
 .brand-logo-link:hover .brand-official-logo {
@@ -2183,4 +2184,89 @@ textarea.form-control {
 
 .modal-body {
   padding: 2rem;
+}
+
+/* Quote Modal Specific Responsive Enhancements */
+.quote-modal-dialog {
+  max-width: 660px;
+  width: 95%;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(76, 29, 149, 0.25);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.quote-modal-header {
+  background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-primary) 100%);
+  color: #FFFFFF;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quote-modal-header .modal-title {
+  color: #FFFFFF;
+  font-size: 1.35rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quote-modal-header .modal-close-btn {
+  color: #E9D5FF;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.quote-modal-header .modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  transform: rotate(90deg);
+}
+
+.quote-modal-body {
+  padding: 2rem;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Button Loading Spinner */
+.btn-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  border-top-color: #FFFFFF;
+  animation: btnSpin 0.75s linear infinite;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+@keyframes btnSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn.loading {
+  opacity: 0.85;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .quote-modal-body {
+    padding: 1.25rem;
+  }
+  .quote-modal-header {
+    padding: 1.25rem;
+  }
 }

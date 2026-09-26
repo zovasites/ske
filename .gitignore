@@ -1,0 +1,6 @@
+# Sensitive credentials - do not commit to version control
+.env
+.env.local
+*.log
+__pycache__/
+node_modules/

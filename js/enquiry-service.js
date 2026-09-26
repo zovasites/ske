@@ -8,7 +8,7 @@ const SKE_CONFIG = {
   phoneFormatted: "+91 98432 27289",
   emails: ["infoskeindiaerd@gmail.com", "arunskeindiaerd@gmail.com"],
   defaultWhatsAppMsg: "Hello Sree Krishna Enterprizes, I am interested in your textile machinery/products. Please share more details.",
-  apiEndpoint: null // Configurable backend URL when production backend is deployed
+  apiEndpoint: "api/enquiry.php" // Self-hosted PHP endpoint — secure server-side email dispatch
 };
 
 const EnquiryService = {
@@ -94,21 +94,48 @@ const EnquiryService = {
       console.warn("Storage warning:", e);
     }
 
-    // In production with backend, an API call would be dispatched here
+    // Send to Formspree — delivers email to owner inbox on every submission
     if (SKE_CONFIG.apiEndpoint) {
       try {
-        await fetch(SKE_CONFIG.apiEndpoint, {
+        const response = await fetch(SKE_CONFIG.apiEndpoint, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            name: payload.fullName,
+            company: payload.companyName,
+            country: payload.country,
+            phone: payload.phone,
+            email: payload.email,
+            product: payload.productRequired,
+            condition: payload.machineryCondition,
+            quantity: payload.quantity,
+            specifications: payload.specifications,
+            message: payload.message,
+            enquiry_id: payload.id,
+            submitted_at: payload.createdAt
+          })
         });
+
+        const json = await response.json();
+
+        if (!response.ok || json.error) {
+          console.error("Formspree error:", json);
+          return {
+            success: false,
+            errors: { message: json.error || "Submission failed. Please try WhatsApp or call us directly." }
+          };
+        }
       } catch (err) {
-        console.error("Backend dispatch error:", err);
+        console.error("Network error:", err);
+        return {
+          success: false,
+          errors: { message: "Network error. Please check your connection and try again." }
+        };
       }
     }
-
-    // Simulate clean network latency for smooth UI experience
-    await new Promise(resolve => setTimeout(resolve, 600));
 
     return {
       success: true,

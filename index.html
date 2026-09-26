@@ -125,11 +125,11 @@
   <header class="header-brand-bar site-header" id="site-header">
     <div class="container brand-bar-inner">
       <a href="#home" class="brand-logo-link" aria-label="Sree Krishna Enterprizes Homepage">
-        <img src="assets/logo.png" alt="Sree Krishna Enterprizes Official Logo" class="brand-official-logo" width="75"
+        <img src="assets/logo.jpg" alt="Sree Krishna Enterprizes Official Logo" class="brand-official-logo" width="75"
           height="90">
         <div class="brand-text-block">
           <span class="brand-main-title">SREE KRISHNA <span>ENTERPRIZES</span></span>
-          <span class="brand-tagline-text">GLOBAL TRADERS FOR TEXTILE</span>
+          <span class="brand-tagline-text">GLOBAL TRADERS FOR TEXTILE WEAVING ACCESSORIES AND MACHINERIES</span>
         </div>
       </a>
 
@@ -219,9 +219,9 @@
           <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
         <div class="nav-actions">
-          <a href="#quote" class="btn btn-secondary btn-sm">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openQuoteModal()" data-open-quote-modal>
             REQUEST A QUOTE
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -244,7 +244,7 @@
           GLOBAL TEXTILE MACHINERY TRADERS
         </div>
         <h1 class="hero-title">
-          Global Traders for all Imported <span class="highlight-text">Machinery &amp; Accessories</span>
+          Global Traders for all Imported <span class="highlight-text">Textile Weaving Machinery &amp; Accessories</span>
         </h1>
         <p class="hero-subtitle">
           New &amp; Used Imported Textile Weaving Accessories | New &amp; Used Looms | Worldwide Supply
@@ -262,9 +262,9 @@
               <polyline points="12 5 19 12 12 19"></polyline>
             </svg>
           </a>
-          <a href="#quote" class="btn btn-secondary btn-lg">
+          <button type="button" class="btn btn-secondary btn-lg" onclick="openQuoteModal()" data-open-quote-modal>
             REQUEST A QUOTE
-          </a>
+          </button>
           <a href="https://wa.me/919843227289?text=Hello%20Sree%20Krishna%20Enterprizes%2C%20I%20am%20interested%20in%20your%20textile%20machinery%2Fproducts.%20Please%20share%20more%20details."
             target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-lg">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -535,12 +535,7 @@
           <button type="button" class="category-tab-btn" data-category="sizing" role="tab">Sizing</button>
           <button type="button" class="category-tab-btn" data-category="spinning" role="tab">Spinning</button>
           <button type="button" class="category-tab-btn" data-category="warping" role="tab">Warping</button>
-          <button type="button" class="category-tab-btn" data-category="weaving-accessories" role="tab">Weaving
-            Accessories</button>
-          <button type="button" class="category-tab-btn" data-category="loom-spare-parts" role="tab">Loom Spare
-            Parts</button>
-          <button type="button" class="category-tab-btn" data-category="machinery-components" role="tab">Machinery
-            Components</button>
+
         </div>
 
         <div class="catalog-search-wrap">
@@ -1696,49 +1691,43 @@
                 placeholder="e.g. Apex Weaving Mills">
             </div>
 
-            <!-- Country * -->
+            <!-- Phone Number * -->
             <div class="form-group">
-              <label for="field-country" class="form-label">Country <span class="req">*</span></label>
-              <input type="text" id="field-country" name="country" class="form-control"
-                placeholder="e.g. India, Bangladesh, Vietnam..." required>
-              <span class="form-error-msg">Please specify your country.</span>
-            </div>
-
-            <!-- Phone / WhatsApp * -->
-            <div class="form-group">
-              <label for="field-phone" class="form-label">Phone / WhatsApp <span class="req">*</span></label>
+              <label for="field-phone" class="form-label">Phone Number <span class="req">*</span></label>
               <input type="tel" id="field-phone" name="phone" class="form-control" placeholder="e.g. +91 98432 27289"
                 required>
-              <span class="form-error-msg">Please provide a valid contact number.</span>
+              <span class="form-error-msg">Please provide a valid phone or WhatsApp number.</span>
             </div>
 
-            <!-- Email * -->
-            <div class="form-group full-width">
-              <label for="field-email" class="form-label">Email <span class="req">*</span></label>
+            <!-- Email Address * -->
+            <div class="form-group">
+              <label for="field-email" class="form-label">Email Address <span class="req">*</span></label>
               <input type="email" id="field-email" name="email" class="form-control" placeholder="e.g. name@company.com"
                 required>
               <span class="form-error-msg">Please provide a valid email address.</span>
             </div>
 
-            <!-- Product / Machinery Required * -->
+            <!-- Product / Service * -->
             <div class="form-group">
-              <label for="field-product-required" class="form-label">Product / Machinery Required <span
-                  class="req">*</span></label>
-              <input type="text" id="field-product-required" name="productRequired" class="form-control"
-                placeholder="e.g. Rapier Loom / Ceramic Guides" required>
-              <span class="form-error-msg">Please specify the product required.</span>
-            </div>
-
-            <!-- New or Used -->
-            <div class="form-group">
-              <label for="field-machinery-condition" class="form-label">New or Used</label>
-              <select id="field-machinery-condition" name="machineryCondition" class="form-control">
-                <option value="Not Specified">Select Preference</option>
-                <option value="New Machinery">New Machinery</option>
-                <option value="Used Machinery">Used Machinery</option>
-                <option value="Imported Accessories">Imported Accessories</option>
-                <option value="Spare Parts">Spare Parts</option>
+              <label for="field-product-service" class="form-label">Product / Service <span class="req">*</span></label>
+              <select id="field-product-service" name="productService" class="form-control" required>
+                <option value="">Select Product or Service</option>
+                <option value="New Textile Looms">New Textile Looms</option>
+                <option value="Used Textile Looms">Used Textile Looms</option>
+                <option value="Airjet Looms">Airjet Looms (Toyota / Tsudakoma / Picanol)</option>
+                <option value="Rapier Looms">Rapier Looms (Picanol / Somet / Vamatex / Dornier)</option>
+                <option value="Waterjet Looms">Waterjet Looms</option>
+                <option value="Shuttleless Looms">Shuttleless Looms</option>
+                <option value="Sizing Machinery">Sizing Machinery</option>
+                <option value="Warping Machinery">Warping Machinery</option>
+                <option value="Spinning Machinery">Spinning Machinery</option>
+                <option value="Electronic Jacquards">Electronic Jacquards</option>
+                <option value="Loom Spare Parts & Accessories">Loom Spare Parts &amp; Accessories</option>
+                <option value="Ceramic Guides & Weaving Spares">Ceramic Guides &amp; Weaving Spares</option>
+                <option value="Machinery Valuation & Sourcing">Machinery Valuation &amp; Sourcing Consultation</option>
+                <option value="Other Textile Machinery">Other Textile Machinery / Custom Requirement</option>
               </select>
+              <span class="form-error-msg">Please select or specify the product/service required.</span>
             </div>
 
             <!-- Quantity -->
@@ -1748,26 +1737,19 @@
                 placeholder="e.g. 4 Units / 500 Pcs">
             </div>
 
-            <!-- Required Specifications -->
-            <div class="form-group">
-              <label for="field-specifications" class="form-label">Required Specifications</label>
-              <input type="text" id="field-specifications" name="specifications" class="form-control"
-                placeholder="e.g. 230 cm Width, Electronic Dobby">
-            </div>
-
-            <!-- Message * -->
+            <!-- Message / Requirements * -->
             <div class="form-group full-width">
-              <label for="field-message" class="form-label">Message <span class="req">*</span></label>
+              <label for="field-message" class="form-label">Message / Requirements <span class="req">*</span></label>
               <textarea id="field-message" name="message" class="form-control"
-                placeholder="Please describe your specific technical requirements, delivery timeframe, or enquiry details..."
+                placeholder="Please describe your specific technical requirements, delivery timeframe, preferred brand, or machinery details..."
                 required></textarea>
-              <span class="form-error-msg">Please enter enquiry message details.</span>
+              <span class="form-error-msg">Please describe your requirements.</span>
             </div>
           </div>
 
           <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
             <button type="submit" class="btn btn-secondary btn-lg btn-block">
-              SUBMIT ENQUIRY
+              SUBMIT QUOTE REQUEST
             </button>
             <div class="form-security-note">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -1971,11 +1953,11 @@
         <!-- Brand Summary Column -->
         <div class="footer-brand-col">
           <div class="footer-logo-lockup">
-            <img src="assets/logo.png" alt="Sree Krishna Enterprizes Logo" class="footer-logo-img" width="52"
+            <img src="assets/logo.jpg" alt="Sree Krishna Enterprizes Logo" class="footer-logo-img" width="52"
               height="64">
             <div>
               <div class="footer-brand-title">SREE KRISHNA <span>ENTERPRIZES</span></div>
-              <div class="brand-tagline-text" style="color: #FED7AA; font-size: 0.6875rem;">GLOBAL TRADERS FOR TEXTILE
+              <div class="brand-tagline-text" style="color: #FED7AA; font-size: 0.6875rem;">GLOBAL TRADERS FOR TEXTILE WEAVING ACCESSORIES AND MACHINERIES
               </div>
             </div>
           </div>
@@ -2096,9 +2078,119 @@
       stroke-linecap="round" stroke-linejoin="round">
       <path
         d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
-      </path>
-    </svg>
-  </a>
+     <!-- ==========================================================================
+       Request a Quote Modal
+       ========================================================================== -->
+  <div class="modal-overlay" id="quote-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title">
+    <div class="modal-dialog quote-modal-dialog">
+      <div class="quote-modal-header">
+        <h3 class="modal-title" id="quote-modal-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          Request a Quote
+        </h3>
+        <button type="button" class="modal-close-btn" id="quote-modal-close-btn" aria-label="Close modal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="quote-modal-body">
+        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+          Get competitive pricing, technical specifications, and delivery schedules for textile weaving machinery and accessories.
+        </p>
+
+        <!-- Status Alert Box -->
+        <div class="form-status-alert" id="quote-modal-alert" role="alert"></div>
+
+        <form id="quote-modal-form" novalidate>
+          <div class="form-grid">
+            <!-- Full Name * -->
+            <div class="form-group">
+              <label class="form-label">Full Name <span class="req">*</span></label>
+              <input type="text" name="fullName" class="form-control" placeholder="e.g. Ramesh Kumar" required>
+              <span class="form-error-msg">Please enter your full name.</span>
+            </div>
+
+            <!-- Company Name -->
+            <div class="form-group">
+              <label class="form-label">Company Name</label>
+              <input type="text" name="companyName" class="form-control" placeholder="e.g. Apex Weaving Mills">
+            </div>
+
+            <!-- Phone Number * -->
+            <div class="form-group">
+              <label class="form-label">Phone Number <span class="req">*</span></label>
+              <input type="tel" name="phone" class="form-control" placeholder="e.g. +91 98432 27289" required>
+              <span class="form-error-msg">Please provide a valid phone or WhatsApp number.</span>
+            </div>
+
+            <!-- Email Address * -->
+            <div class="form-group">
+              <label class="form-label">Email Address <span class="req">*</span></label>
+              <input type="email" name="email" class="form-control" placeholder="e.g. name@company.com" required>
+              <span class="form-error-msg">Please provide a valid email address.</span>
+            </div>
+
+            <!-- Product / Service * -->
+            <div class="form-group">
+              <label class="form-label">Product / Service <span class="req">*</span></label>
+              <select name="productService" class="form-control" required>
+                <option value="">Select Product or Service</option>
+                <option value="New Textile Looms">New Textile Looms</option>
+                <option value="Used Textile Looms">Used Textile Looms</option>
+                <option value="Airjet Looms">Airjet Looms (Toyota / Tsudakoma / Picanol)</option>
+                <option value="Rapier Looms">Rapier Looms (Picanol / Somet / Vamatex / Dornier)</option>
+                <option value="Waterjet Looms">Waterjet Looms</option>
+                <option value="Shuttleless Looms">Shuttleless Looms</option>
+                <option value="Sizing Machinery">Sizing Machinery</option>
+                <option value="Warping Machinery">Warping Machinery</option>
+                <option value="Spinning Machinery">Spinning Machinery</option>
+                <option value="Electronic Jacquards">Electronic Jacquards</option>
+                <option value="Loom Spare Parts & Accessories">Loom Spare Parts &amp; Accessories</option>
+                <option value="Ceramic Guides & Weaving Spares">Ceramic Guides &amp; Weaving Spares</option>
+                <option value="Machinery Valuation & Sourcing">Machinery Valuation &amp; Sourcing Consultation</option>
+                <option value="Other Textile Machinery">Other Textile Machinery / Custom Requirement</option>
+              </select>
+              <span class="form-error-msg">Please select the product or service required.</span>
+            </div>
+
+            <!-- Quantity -->
+            <div class="form-group">
+              <label class="form-label">Quantity</label>
+              <input type="text" name="quantity" class="form-control" placeholder="e.g. 4 Units / 500 Pcs">
+            </div>
+
+            <!-- Message / Requirements * -->
+            <div class="form-group full-width">
+              <label class="form-label">Message / Requirements <span class="req">*</span></label>
+              <textarea name="message" class="form-control" rows="3" placeholder="Please describe your machinery model, preferred brand, width, or specific technical requirements..." required></textarea>
+              <span class="form-error-msg">Please describe your requirements.</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.5rem;">
+            <button type="submit" class="btn btn-secondary btn-lg btn-block">
+              SUBMIT QUOTE REQUEST
+            </button>
+            <div class="form-security-note" style="margin-top: 0.75rem; justify-content: center;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>Enquiry is sent securely to SKE sales desk. No spam, immediate response.</span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <!-- ==========================================================================
        Global Modal System
@@ -2128,6 +2220,7 @@
   <script src="js/enquiry-service.js?v=13"></script>
   <script src="js/map-animation.js?v=15"></script>
   <script src="js/app.js?v=13"></script>
+  <script src="js/quote.js?v=1"></script>
 </body>
 
 </html>

@@ -1,0 +1,18 @@
+# Block direct browser access to sensitive files
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+<Files "SmtpMailer.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Block directory listing
+Options -Indexes
+
+# Prevent PHP execution on uploaded files (extra safety)
+<FilesMatch "\.(php)$">
+    Header set X-Content-Type-Options "nosniff"
+</FilesMatch>
