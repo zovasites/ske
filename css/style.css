@@ -206,6 +206,34 @@ button, input, select, textarea {
   color: #FFFFFF;
 }
 
+.btn-instagram {
+  background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(253, 29, 29, 0.25);
+  border-color: transparent;
+}
+
+.btn-instagram:hover {
+  background: linear-gradient(135deg, #6e2d9e 0%, #e01010 50%, #e89e30 100%);
+  box-shadow: 0 6px 16px rgba(253, 29, 29, 0.35);
+  transform: translateY(-1px);
+  color: #FFFFFF;
+}
+
+.btn-facebook {
+  background-color: #1877F2;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(24, 119, 242, 0.25);
+  border-color: transparent;
+}
+
+.btn-facebook:hover {
+  background-color: #1464CC;
+  box-shadow: 0 6px 16px rgba(24, 119, 242, 0.35);
+  transform: translateY(-1px);
+  color: #FFFFFF;
+}
+
 .btn-sm {
   font-size: 0.8125rem;
   padding: 0.5rem 1rem;
@@ -2359,4 +2387,49 @@ textarea.form-control {
     border-radius: 12px;
   }
 }
+
+/* =========================================================================
+   Footer Social Media Links
+   ========================================================================= */
+.footer-social-links {
+  display: flex;
+  gap: 0.625rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.footer-social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.footer-social-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+
+.footer-social-instagram {
+  background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+  color: #FFFFFF;
+  box-shadow: 0 3px 10px rgba(253, 29, 29, 0.3);
+}
+
+.footer-social-facebook {
+  background-color: #1877F2;
+  color: #FFFFFF;
+  box-shadow: 0 3px 10px rgba(24, 119, 242, 0.3);
+}
+
+.footer-social-btn span {
+  line-height: 1;
+}
+
 
