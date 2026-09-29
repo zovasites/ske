@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initSparesCatalog();
   }
   renderAccessoriesGrid();
-  initEnquiryForm();
+  // NOTE: Enquiry form submission is handled entirely by quote.js (initQuoteEvents)
+  // Do NOT add another submit listener here — it caused double-firing/glitching.
   initModals();
   initScrollSpy();
   initViewsCounter();
@@ -204,67 +205,9 @@ function renderAccessoriesGrid() {
 /* ==========================================================================
    4. Enquiry Form Logic & Validation
    ========================================================================== */
-function initEnquiryForm() {
-  const form = document.getElementById('ske-enquiry-form');
-  const alertBox = document.getElementById('form-status-alert');
-  if (!form) return;
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    // Clear previous errors
-    document.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
-    alertBox.className = 'form-status-alert';
-    alertBox.style.display = 'none';
-
-    const formData = {
-      fullName: form.fullName.value.trim(),
-      companyName: form.companyName.value.trim(),
-      country: form.country.value.trim(),
-      phone: form.phone.value.trim(),
-      email: form.email.value.trim(),
-      productRequired: form.productRequired.value.trim(),
-      machineryCondition: form.machineryCondition.value,
-      quantity: form.quantity.value.trim(),
-      specifications: form.specifications.value.trim(),
-      message: form.message.value.trim()
-    };
-
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalBtnText = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = `<span>Processing Enquiry...</span>`;
-
-    const result = await window.EnquiryService.submitEnquiry(formData);
-
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = originalBtnText;
-
-    if (!result.success) {
-      // Highlight specific fields
-      Object.keys(result.errors).forEach(field => {
-        const inputEl = form[field];
-        if (inputEl) {
-          const group = inputEl.closest('.form-group');
-          if (group) {
-            group.classList.add('has-error');
-            const errorMsg = group.querySelector('.form-error-msg');
-            if (errorMsg) errorMsg.textContent = result.errors[field];
-          }
-        }
-      });
-      alertBox.textContent = "Please fill in all mandatory fields correctly.";
-      alertBox.className = 'form-status-alert error';
-      alertBox.style.display = 'block';
-    } else {
-      alertBox.textContent = result.message;
-      alertBox.className = 'form-status-alert success';
-      alertBox.style.display = 'block';
-      form.reset();
-      form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  });
-}
+// Form submission is fully handled by quote.js → initQuoteEvents()
+// which binds to both #quote-modal-form and #ske-enquiry-form.
+// Keeping a second handler here caused double-firing (glitch).
 
 /* ==========================================================================
    5. Modals (Product Details, Quick Quote, Terms, Privacy)

@@ -1,156 +1,157 @@
 /**
- * SKE India - Quote Request Modal & Form Controller
- * -------------------------------------------------------------
- * Handles:
- * - Opening/Closing responsive Quote Modal
- * - Form validation (Client-side)
- * - Duplicate submission prevention
- * - Secure API dispatch (no client credentials)
- * - User experience feedback messages
- * -------------------------------------------------------------
+ * SKE India – Quote Request: Modal + Form Controller
+ * ---------------------------------------------------
+ * Single source of truth for all "Request a Quote" interactions.
+ * Handles both the modal form (#quote-modal-form) and the
+ * on-page enquiry form (#ske-enquiry-form).
+ *
+ * FIX HISTORY
+ * -----------
+ * v2 (2026-09-29):
+ *   - Removed duplicate submit handler that was also registered in app.js
+ *     (initEnquiryForm). That caused double-firing / glitching on every submit.
+ *   - Removed redundant event listeners on a[href="#quote"] and
+ *     [data-open-quote-modal] buttons that already carry onclick="openQuoteModal()"
+ *     — stacking listeners caused the modal to open twice / flicker.
+ *   - Fixed isSubmitting guard to cover both forms with one flag.
+ *   - Added proper aria-hidden management on modal open/close.
  */
 
 (function () {
   'use strict';
 
-  // State
+  /* ------------------------------------------------------------------
+     State
+  ------------------------------------------------------------------ */
   let isSubmitting = false;
 
-  // DOM Elements
-  const modalOverlay = document.getElementById('quote-modal-overlay');
-  const modalCloseBtn = document.getElementById('quote-modal-close-btn');
-  const modalForm = document.getElementById('quote-modal-form');
-  const modalAlert = document.getElementById('quote-modal-alert');
+  /* ------------------------------------------------------------------
+     DOM references (resolved after DOMContentLoaded)
+  ------------------------------------------------------------------ */
+  let modalOverlay, modalCloseBtn, modalForm, modalAlert;
+  let onPageForm, onPageAlert;
 
-  const onPageForm = document.getElementById('ske-enquiry-form');
-  const onPageAlert = document.getElementById('form-status-alert');
+  /* ==================================================================
+     PUBLIC API
+  ================================================================== */
 
   /**
-   * Open Quote Modal
-   * @param {string} [productName] - Optional product to pre-select
+   * Open the quote modal, optionally pre-filling a product.
+   * @param {string} [productName]
    */
   window.openQuoteModal = function (productName) {
     if (!modalOverlay) return;
 
-    // Reset previous alerts
-    if (modalAlert) {
-      modalAlert.className = 'form-status-alert';
-      modalAlert.style.display = 'none';
-      modalAlert.textContent = '';
-    }
+    // Reset alerts
+    _resetAlert(modalAlert);
 
-    // Clear error highlights
+    // Clear validation highlights
     if (modalForm) {
       modalForm.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
     }
 
-    // Pre-fill product if provided
+    // Pre-fill product if given
     if (productName && modalForm) {
-      const productSelect = modalForm.querySelector('[name="productService"]');
-      if (productSelect) {
-        // Check if option exists
-        let found = false;
-        for (let i = 0; i < productSelect.options.length; i++) {
-          if (productSelect.options[i].value.toLowerCase() === productName.toLowerCase()) {
-            productSelect.selectedIndex = i;
-            found = true;
+      const sel = modalForm.querySelector('[name="productService"]');
+      if (sel) {
+        let matched = false;
+        for (let i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].value.toLowerCase() === productName.toLowerCase()) {
+            sel.selectedIndex = i;
+            matched = true;
             break;
           }
         }
-        if (!found) {
-          // If custom product name not in options, select 'Other' and pre-fill message
-          const otherOpt = Array.from(productSelect.options).find(o => o.value.toLowerCase().includes('other'));
-          if (otherOpt) productSelect.value = otherOpt.value;
-          const msgInput = modalForm.querySelector('[name="message"]');
-          if (msgInput && !msgInput.value) {
-            msgInput.value = `Interested in quote for: ${productName}`;
+        if (!matched) {
+          const otherOpt = Array.from(sel.options).find(o =>
+            o.value.toLowerCase().includes('other')
+          );
+          if (otherOpt) sel.value = otherOpt.value;
+          const msgEl = modalForm.querySelector('[name="message"]');
+          if (msgEl && !msgEl.value) {
+            msgEl.value = `Interested in quote for: ${productName}`;
           }
         }
       }
     }
 
     modalOverlay.classList.add('open');
+    modalOverlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    // Focus on first input
+    // Focus first field
     setTimeout(() => {
-      const firstInput = modalOverlay.querySelector('input[name="fullName"]');
-      if (firstInput) firstInput.focus();
-    }, 100);
+      const first = modalOverlay.querySelector('input[name="fullName"]');
+      if (first) first.focus();
+    }, 120);
   };
 
   /**
-   * Close Quote Modal
+   * Close the quote modal.
    */
   window.closeQuoteModal = function () {
     if (!modalOverlay) return;
     modalOverlay.classList.remove('open');
+    modalOverlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   };
 
   /**
-   * Helper to open quote with specific product from anywhere on the page
+   * Open quote modal AND pre-fill the on-page form if present.
+   * Called from product cards: openQuoteWithProduct('Airjet Loom')
    */
   window.openQuoteWithProduct = function (productName) {
     window.openQuoteModal(productName);
-
-    // Also update on-page form if present
     if (onPageForm) {
-      const onPageProduct = onPageForm.querySelector('[name="productService"]') || onPageForm.querySelector('[name="productRequired"]');
-      if (onPageProduct) onPageProduct.value = productName;
+      const el =
+        onPageForm.querySelector('[name="productService"]') ||
+        onPageForm.querySelector('[name="productRequired"]');
+      if (el) el.value = productName;
     }
   };
 
-  /**
-   * Validate Form Fields
-   */
-  function validateQuoteData(data) {
+  /* ==================================================================
+     VALIDATION
+  ================================================================== */
+
+  function _validate(data) {
     const errors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneClean = (data.phone || '').replace(/[^0-9]/g, '');
 
     if (!data.fullName || data.fullName.trim().length < 2) {
       errors.fullName = 'Please enter your full name.';
     }
-
     if (!data.phone || phoneClean.length < 6) {
       errors.phone = 'Please provide a valid phone or WhatsApp number.';
     }
-
-    if (!data.email || !emailRegex.test(data.email.trim())) {
+    if (!data.email || !emailRx.test(data.email.trim())) {
       errors.email = 'Please provide a valid email address.';
     }
-
     if (!data.productService || data.productService.trim().length < 2) {
       errors.productService = 'Please select or specify the product or service.';
     }
-
     if (!data.message || data.message.trim().length < 4) {
-      errors.message = 'Please describe your requirements or enquiry details.';
+      errors.message = 'Please describe your requirements.';
     }
 
-    return {
-      isValid: Object.keys(errors).length === 0,
-      errors
-    };
+    return { isValid: Object.keys(errors).length === 0, errors };
   }
 
-  /**
-   * Submit Quote Request to Secure Backend API
-   */
-  async function submitQuoteRequest(formData, formEl, alertEl) {
+  /* ==================================================================
+     SUBMIT
+  ================================================================== */
+
+  async function _submit(formData, formEl, alertEl) {
+    // Guard: prevent concurrent / duplicate submissions
     if (isSubmitting) return;
 
-    // Clear previous errors
+    // Clear previous state
     formEl.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
-    if (alertEl) {
-      alertEl.className = 'form-status-alert';
-      alertEl.style.display = 'none';
-      alertEl.textContent = '';
-    }
+    _resetAlert(alertEl);
 
-    // Validate client-side
-    const validation = validateQuoteData(formData);
+    // Client-side validation
+    const validation = _validate(formData);
     if (!validation.isValid) {
       Object.keys(validation.errors).forEach(field => {
         const inputEl = formEl.querySelector(`[name="${field}"]`);
@@ -163,36 +164,34 @@
           }
         }
       });
-      if (alertEl) {
-        alertEl.textContent = 'Please fill in all mandatory fields (*) marked above.';
-        alertEl.className = 'form-status-alert error';
-        alertEl.style.display = 'block';
-      }
+      _showAlert(alertEl, 'error', 'Please fill in all mandatory fields (*) marked above.');
+      // Focus first errored field
+      const firstErr = formEl.querySelector('.form-group.has-error input, .form-group.has-error select, .form-group.has-error textarea');
+      if (firstErr) firstErr.focus();
       return;
     }
 
-    // Set submitting state & prevent duplicates
+    // Lock UI
     isSubmitting = true;
     const submitBtn = formEl.querySelector('button[type="submit"]');
-    const originalBtnHtml = submitBtn ? submitBtn.innerHTML : 'SUBMIT QUOTE REQUEST';
-
+    const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
     if (submitBtn) {
       submitBtn.disabled = true;
       submitBtn.classList.add('loading');
       submitBtn.innerHTML = `
         <span class="btn-spinner"></span>
-        <span>Submitting Quote Request...</span>
+        <span>Submitting...</span>
       `;
     }
 
-    // Try primary endpoint first, then fallbacks if needed
-    const endpoints = ['/api/quote', 'api/quote.php', 'api/enquiry.php', '/api/enquiry'];
-    let submissionSuccess = false;
-    let responseMessage = '';
+    // Endpoint fallback chain (primary → Formspree)
+    const endpoints = ['/api/quote', 'api/quote.php'];
+    let submitted = false;
+    let serverMessage = '';
 
     for (const endpoint of endpoints) {
       try {
-        const response = await fetch(endpoint, {
+        const res = await fetch(endpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -201,24 +200,52 @@
           body: JSON.stringify(formData)
         });
 
-        const result = await response.json().catch(() => null);
+        let result = null;
+        try { result = await res.json(); } catch (_) { /* non-JSON response */ }
 
-        if (response.ok && result && result.success) {
-          submissionSuccess = true;
-          responseMessage = result.message || 'Thank you! Your quote request has been submitted successfully. Our team will contact you shortly.';
+        if (res.ok && result && result.success) {
+          submitted = true;
+          serverMessage = result.message || '';
           break;
-        } else if (response.status === 400 && result && result.message) {
-          // Validation error from server
-          responseMessage = result.message;
+        } else if (res.status === 400 && result && result.message) {
+          serverMessage = result.message;
           break;
         }
       } catch (err) {
-        // Try next endpoint in array
-        console.warn(`Attempt at ${endpoint} failed, trying next...`, err);
+        console.warn(`[SKE Quote] Attempt at ${endpoint} failed:`, err.message);
       }
     }
 
-    // Reset button state
+    // If all serverless endpoints fail, try Formspree directly as last resort
+    if (!submitted) {
+      try {
+        const fsRes = await fetch('https://formspree.io/f/xaendkbd', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            '_subject': 'New Request for Quote – SKE India',
+            'Full Name': formData.fullName,
+            'Company Name': formData.companyName || '—',
+            'Phone': formData.phone,
+            'Email': formData.email,
+            'Product / Service': formData.productService,
+            'Quantity': formData.quantity || '—',
+            'Message': formData.message,
+            '_replyto': formData.email
+          })
+        });
+        if (fsRes.ok) {
+          submitted = true;
+        }
+      } catch (err) {
+        console.warn('[SKE Quote] Formspree fallback failed:', err.message);
+      }
+    }
+
+    // Restore button
     if (submitBtn) {
       submitBtn.disabled = false;
       submitBtn.classList.remove('loading');
@@ -226,15 +253,16 @@
     }
     isSubmitting = false;
 
-    if (submissionSuccess) {
-      if (alertEl) {
-        alertEl.textContent = 'Thank you! Your quote request has been submitted successfully. Our team will contact you shortly.';
-        alertEl.className = 'form-status-alert success';
-        alertEl.style.display = 'block';
-      }
+    // Feedback
+    if (submitted) {
+      _showAlert(
+        alertEl,
+        'success',
+        'Thank you! Your quote request has been submitted successfully. Our team will contact you shortly.'
+      );
       formEl.reset();
 
-      // If submitted in modal, auto-close after 3 seconds or allow user to close
+      // Auto-close modal after 4 s
       if (formEl === modalForm) {
         setTimeout(() => {
           if (modalOverlay && modalOverlay.classList.contains('open')) {
@@ -242,87 +270,105 @@
           }
         }, 4000);
       } else {
-        alertEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        alertEl && alertEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     } else {
-      if (alertEl) {
-        alertEl.textContent = responseMessage || 'Unable to submit your request. Please try again.';
-        alertEl.className = 'form-status-alert error';
-        alertEl.style.display = 'block';
-      }
+      _showAlert(
+        alertEl,
+        'error',
+        serverMessage || 'Unable to submit your request right now. Please try again or contact us via WhatsApp.'
+      );
     }
   }
 
-  /**
-   * Bind Form Submissions & Event Listeners
-   */
-  function initQuoteEvents() {
-    // 1. Connect all "Request a Quote" buttons to open the modal
-    document.querySelectorAll('[data-open-quote-modal], a[href="#quote"], .btn-request-quote').forEach(btn => {
-      // Don't override if inside footer legal or inside the form itself
-      if (btn.closest('form')) return;
+  /* ==================================================================
+     HELPERS
+  ================================================================== */
 
-      btn.addEventListener('click', (e) => {
-        // If it's a quote button, open modal
-        e.preventDefault();
-        window.openQuoteModal();
-      });
-    });
+  function _resetAlert(el) {
+    if (!el) return;
+    el.className = 'form-status-alert';
+    el.style.display = 'none';
+    el.textContent = '';
+  }
 
-    // 2. Modal Close handlers
+  function _showAlert(el, type, message) {
+    if (!el) return;
+    el.textContent = message;
+    el.className = `form-status-alert ${type}`;
+    el.style.display = 'block';
+  }
+
+  function _readForm(formEl) {
+    const g = name => {
+      const el = formEl.querySelector(`[name="${name}"]`);
+      return el ? el.value.trim() : '';
+    };
+    return {
+      fullName:       g('fullName'),
+      companyName:    g('companyName'),
+      phone:          g('phone'),
+      email:          g('email'),
+      productService: g('productService') || g('productRequired'),
+      quantity:       g('quantity'),
+      message:        g('message')
+    };
+  }
+
+  /* ==================================================================
+     INITIALISE
+  ================================================================== */
+
+  function init() {
+    modalOverlay  = document.getElementById('quote-modal-overlay');
+    modalCloseBtn = document.getElementById('quote-modal-close-btn');
+    modalForm     = document.getElementById('quote-modal-form');
+    modalAlert    = document.getElementById('quote-modal-alert');
+    onPageForm    = document.getElementById('ske-enquiry-form');
+    onPageAlert   = document.getElementById('form-status-alert');
+
+    /* -- Modal close handlers -- */
     if (modalCloseBtn) {
       modalCloseBtn.addEventListener('click', window.closeQuoteModal);
     }
     if (modalOverlay) {
-      modalOverlay.addEventListener('click', (e) => {
+      modalOverlay.setAttribute('aria-hidden', 'true');
+      modalOverlay.addEventListener('click', e => {
         if (e.target === modalOverlay) window.closeQuoteModal();
       });
     }
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('open')) {
         window.closeQuoteModal();
       }
     });
 
-    // 3. Modal Form Submission
+    /* -- Modal form submission -- */
     if (modalForm) {
-      modalForm.addEventListener('submit', (e) => {
+      modalForm.addEventListener('submit', e => {
         e.preventDefault();
-        const data = {
-          fullName: (modalForm.fullName ? modalForm.fullName.value : '').trim(),
-          companyName: (modalForm.companyName ? modalForm.companyName.value : '').trim(),
-          phone: (modalForm.phone ? modalForm.phone.value : '').trim(),
-          email: (modalForm.email ? modalForm.email.value : '').trim(),
-          productService: (modalForm.productService ? modalForm.productService.value : '').trim(),
-          quantity: (modalForm.quantity ? modalForm.quantity.value : '').trim(),
-          message: (modalForm.message ? modalForm.message.value : '').trim()
-        };
-        submitQuoteRequest(data, modalForm, modalAlert);
+        _submit(_readForm(modalForm), modalForm, modalAlert);
       });
     }
 
-    // 4. On-Page Quote Form Submission (#ske-enquiry-form)
+    /* -- On-page enquiry form submission -- */
     if (onPageForm) {
-      onPageForm.addEventListener('submit', (e) => {
+      onPageForm.addEventListener('submit', e => {
         e.preventDefault();
-        const data = {
-          fullName: (onPageForm.fullName ? onPageForm.fullName.value : '').trim(),
-          companyName: (onPageForm.companyName ? onPageForm.companyName.value : '').trim(),
-          phone: (onPageForm.phone ? onPageForm.phone.value : '').trim(),
-          email: (onPageForm.email ? onPageForm.email.value : '').trim(),
-          productService: (onPageForm.productService ? onPageForm.productService.value : (onPageForm.productRequired ? onPageForm.productRequired.value : '')).trim(),
-          quantity: (onPageForm.quantity ? onPageForm.quantity.value : '').trim(),
-          message: (onPageForm.message ? onPageForm.message.value : '').trim()
-        };
-        submitQuoteRequest(data, onPageForm, onPageAlert);
+        _submit(_readForm(onPageForm), onPageForm, onPageAlert);
       });
     }
+
+    /* -- NOTE: We do NOT re-bind [data-open-quote-modal] or a[href="#quote"]
+          buttons here. Those already carry onclick="openQuoteModal()" in the
+          HTML. Adding event listeners on top would cause double-open / flicker. -- */
   }
 
-  // Initialize once DOM is loaded
+  /* Run after DOM is ready */
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initQuoteEvents);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    initQuoteEvents();
+    init();
   }
+
 })();

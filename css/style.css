@@ -234,6 +234,20 @@ button, input, select, textarea {
   color: #FFFFFF;
 }
 
+.btn-youtube {
+  background-color: #FF0000;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.25);
+  border-color: transparent;
+}
+
+.btn-youtube:hover {
+  background-color: #CC0000;
+  box-shadow: 0 6px 16px rgba(255, 0, 0, 0.35);
+  transform: translateY(-1px);
+  color: #FFFFFF;
+}
+
 .btn-sm {
   font-size: 0.8125rem;
   padding: 0.5rem 1rem;
@@ -434,12 +448,11 @@ button, input, select, textarea {
 }
 
 .brand-official-logo {
-  height: 82px;
+  height: 94px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 2px 6px rgba(76, 29, 149, 0.15));
+  filter: drop-shadow(0 2px 6px rgba(76, 29, 149, 0.12));
   transition: transform var(--transition-fast);
-  mix-blend-mode: multiply;
 }
 
 .brand-logo-link:hover .brand-official-logo {
@@ -535,6 +548,7 @@ button, input, select, textarea {
   color: var(--brand-dark);
   text-decoration: none;
   line-height: 1.2;
+  white-space: nowrap;
   transition: color var(--transition-fast);
 }
 
@@ -2426,6 +2440,12 @@ textarea.form-control {
   background-color: #1877F2;
   color: #FFFFFF;
   box-shadow: 0 3px 10px rgba(24, 119, 242, 0.3);
+}
+
+.footer-social-youtube {
+  background-color: #FF0000;
+  color: #FFFFFF;
+  box-shadow: 0 3px 10px rgba(255, 0, 0, 0.3);
 }
 
 .footer-social-btn span {
