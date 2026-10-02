@@ -448,7 +448,7 @@ button, input, select, textarea {
 }
 
 .brand-official-logo {
-  height: 94px;
+  height: 112px;
   width: auto;
   object-fit: contain;
   transition: transform var(--transition-fast);
