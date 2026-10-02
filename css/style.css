@@ -464,12 +464,13 @@ button, input, select, textarea {
 }
 
 .brand-main-title {
-  font-size: 2.25rem;
+  font-size: 1.75rem;
   font-weight: 900;
   letter-spacing: -0.015em;
   color: var(--brand-primary);
   line-height: 1.05;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .brand-main-title span {
