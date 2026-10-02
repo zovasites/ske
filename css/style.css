@@ -464,7 +464,7 @@ button, input, select, textarea {
 }
 
 .brand-main-title {
-  font-size: 1.75rem;
+  font-size: 2rem;
   font-weight: 900;
   letter-spacing: -0.015em;
   color: var(--brand-primary);
