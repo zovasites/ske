@@ -451,7 +451,6 @@ button, input, select, textarea {
   height: 94px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 2px 6px rgba(76, 29, 149, 0.12));
   transition: transform var(--transition-fast);
 }
 
