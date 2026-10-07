@@ -45,7 +45,7 @@
 
   <!-- Core Stylesheets -->
   <link rel="stylesheet" href="css/variables.css?v=16">
-  <link rel="stylesheet" href="css/style.css?v=18">
+  <link rel="stylesheet" href="css/style.css?v=20">
   <link rel="stylesheet" href="css/spares.css?v=15">
   <link rel="stylesheet" href="css/responsive.css?v=16">
 
@@ -571,9 +571,103 @@
     </div>
   </section>
 
-  <!-- ==========================================================================
-       Brands We Deal In
-       ========================================================================== -->
+  <!-- Brands We Deal In Grid Styling -->
+  <style>
+    .brands-grid-container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .brands-grid {
+      display: grid !important;
+      grid-template-columns: repeat(5, 1fr) !important;
+      gap: 1.25rem !important;
+    }
+    .brand-item-card {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 12px !important;
+      padding: 1.25rem 1rem 1rem !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+      transition: all 0.25s ease !important;
+      min-height: 110px !important;
+      box-sizing: border-box !important;
+    }
+    .brand-item-card:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: 0 10px 20px -4px rgba(59, 7, 100, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.04) !important;
+      border-color: #ea580c !important;
+    }
+    .brand-item-logo-wrap {
+      width: 100% !important;
+      height: 52px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    .brand-item-logo {
+      max-width: 100% !important;
+      max-height: 46px !important;
+      height: auto !important;
+      width: auto !important;
+      object-fit: contain !important;
+      display: block !important;
+      margin: 0 auto !important;
+      transition: transform 0.25s ease !important;
+    }
+    .brand-item-card:hover .brand-item-logo {
+      transform: scale(1.06) !important;
+    }
+    .brand-item-name {
+      display: block !important;
+      font-size: 0.8rem !important;
+      font-weight: 700 !important;
+      color: #475569 !important;
+      margin-top: 0.65rem !important;
+      letter-spacing: 0.02em !important;
+      transition: color 0.2s ease !important;
+    }
+    .brand-item-card:hover .brand-item-name {
+      color: #3b0764 !important;
+    }
+    @media (max-width: 1024px) {
+      .brands-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 1rem !important;
+      }
+    }
+    @media (max-width: 768px) {
+      .brands-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.75rem !important;
+      }
+      .brand-item-card {
+        padding: 0.875rem 0.5rem 0.75rem !important;
+        min-height: 95px !important;
+      }
+      .brand-item-logo-wrap {
+        height: 42px !important;
+      }
+      .brand-item-logo {
+        max-height: 36px !important;
+      }
+      .brand-item-name {
+        font-size: 0.72rem !important;
+      }
+    }
+    @media (max-width: 480px) {
+      .brands-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.65rem !important;
+      }
+    }
+  </style>
+
   <section class="brands-strip-section" id="brands">
     <div class="container">
       <div class="brands-strip-header">
@@ -583,11 +677,113 @@
           manufacturers</p>
         <p class="brands-strip-subtitle">and can be tried with</p>
       </div>
-      <div class="brands-showcase-container">
-        <div class="brands-showcase-card">
-          <img src="assets/images/brands-we-deal.png"
-            alt="Promatech, Picanol, Sulzer Textil, Sulzer Rüti, Dornier, Panter, China Flexible Rapier Looms, Stäubli, Bonas, AGM Jactex AG, IRO, ROJ, LGL, Loepfe, Eltex"
-            class="brands-showcase-img" loading="lazy">
+      <div class="brands-grid-container">
+        <div class="brands-grid">
+          <!-- 1. Promatech -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/promatech.png" alt="Promatech Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">Promatech</span>
+          </div>
+          <!-- 2. Picanol -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/picanol.png" alt="Picanol Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">Picanol</span>
+          </div>
+          <!-- 3. Sulzer Textil -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/sulzer-textil.png" alt="Sulzer Textil Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">Sulzer Textil</span>
+          </div>
+          <!-- 4. Sulzer Rüti -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/sulzer-ruti.png" alt="Sulzer Rüti Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">Sulzer Rüti</span>
+          </div>
+          <!-- 5. Dornier -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/dornier.png" alt="Dornier Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">Dornier</span>
+          </div>
+          <!-- 6. Panter -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/panter.png" alt="Panter Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">Panter</span>
+          </div>
+          <!-- 7. China Looms -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/china-looms.png" alt="China Flexible Rapier Looms Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">China Looms</span>
+          </div>
+          <!-- 8. Stäubli -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/staubli.png" alt="Stäubli Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">Stäubli</span>
+          </div>
+          <!-- 9. Bonas -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/bonas.png" alt="Bonas Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">Bonas</span>
+          </div>
+          <!-- 10. AGM Jactex -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/agm-jactex.png" alt="AGM Jactex AG Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">AGM Jactex</span>
+          </div>
+          <!-- 11. IRO -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/iro.png" alt="IRO Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">IRO</span>
+          </div>
+          <!-- 12. ROJ -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/roj.png" alt="ROJ Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">ROJ</span>
+          </div>
+          <!-- 13. LGL -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/lgl.png" alt="LGL Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">LGL</span>
+          </div>
+          <!-- 14. Loepfe -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/loepfe.png" alt="Loepfe Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">Loepfe</span>
+          </div>
+          <!-- 15. Eltex -->
+          <div class="brand-item-card">
+            <div class="brand-item-logo-wrap">
+              <img src="assets/images/brands/eltex.png" alt="Eltex of Sweden Logo" class="brand-item-logo" loading="lazy">
+            </div>
+            <span class="brand-item-name">Eltex</span>
+          </div>
         </div>
       </div>
     </div>

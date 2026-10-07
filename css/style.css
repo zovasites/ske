@@ -2357,36 +2357,77 @@ textarea.form-control {
   margin: 0;
 }
 
-.brands-showcase-container {
-  max-width: 1040px;
+.brands-grid-container {
+  max-width: 1140px;
   margin: 0 auto;
   padding: 0 1.25rem;
 }
 
-.brands-showcase-card {
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+}
+
+.brand-item-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  padding: 2.25rem 2.5rem;
+  border-radius: 12px;
+  padding: 1.25rem 1rem 1rem;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  min-height: 110px;
 }
 
-.brands-showcase-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px -6px rgba(59, 7, 100, 0.08), 0 4px 8px -2px rgba(0, 0, 0, 0.04);
-  border-color: #cbd5e1;
+.brand-item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px -4px rgba(59, 7, 100, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  border-color: var(--brand-secondary, #ea580c);
 }
 
-.brands-showcase-img {
+.brand-item-logo-wrap {
   width: 100%;
-  max-width: 960px;
-  height: auto;
-  display: block;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-item-logo {
+  max-width: 100%;
+  max-height: 46px;
   object-fit: contain;
+  transition: transform 0.25s ease;
+}
+
+.brand-item-card:hover .brand-item-logo {
+  transform: scale(1.05);
+}
+
+.brand-item-name {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #475569;
+  margin-top: 0.6rem;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
+}
+
+.brand-item-card:hover .brand-item-name {
+  color: var(--brand-primary, #3b0764);
+}
+
+@media (max-width: 1024px) {
+  .brands-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -2396,9 +2437,29 @@ textarea.form-control {
   .brands-strip-title {
     font-size: 1.35rem;
   }
-  .brands-showcase-card {
-    padding: 1.25rem 1rem;
-    border-radius: 12px;
+  .brands-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.85rem;
+  }
+  .brand-item-card {
+    padding: 1rem 0.75rem 0.75rem;
+    min-height: 95px;
+  }
+  .brand-item-logo-wrap {
+    height: 44px;
+  }
+  .brand-item-logo {
+    max-height: 38px;
+  }
+  .brand-item-name {
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .brands-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
   }
 }
 
