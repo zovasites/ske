@@ -133,17 +133,17 @@ window.SKE_SPARES_DATA = [
     ]
   },
   {
-    id: "airjet_toyota",
-    name: "Airjet - Toyota",
+    id: "airjet_toyoda",
+    name: "Airjet - Toyoda",
     category: "Airjet Loom Spares",
     badge: "4 Pages",
-    description: "Airjet Accessories I, II, III, and IV for Toyota (Toyoda) Airjet looms (ATO 1 to ATO 168 including electronic boards).",
+    description: "Airjet Accessories I, II, III, and IV for Toyoda (Toyoda) Airjet looms (ATO 1 to ATO 168 including electronic boards).",
     icon: "air",
     pages: [
-      { pageNumber: 50, title: "Toyota Airjet Accessories I", subtitle: "ATO 1 to ATO 69 Air Injectors, Valves & Blocks", image: "assets/spares/pages/page_50.png" },
-      { pageNumber: 51, title: "Toyota Airjet Accessories II", subtitle: "ATO 70 to ATO 116 Cutter Blades, Mounts & Detectors", image: "assets/spares/pages/page_51.png" },
-      { pageNumber: 52, title: "Toyota Airjet Accessories III", subtitle: "ATO 117 to ATO 150 Flanges, Bearings, Cams & Knives", image: "assets/spares/pages/page_52.png" },
-      { pageNumber: 53, title: "Toyota Airjet Accessories IV", subtitle: "ATO 151 to ATO 168 Circuit Boards, Panels, Displays & Sensors", image: "assets/spares/pages/page_53.png" }
+      { pageNumber: 50, title: "Toyoda Airjet Accessories I", subtitle: "ATO 1 to ATO 69 Air Injectors, Valves & Blocks", image: "assets/spares/pages/page_50.png" },
+      { pageNumber: 51, title: "Toyoda Airjet Accessories II", subtitle: "ATO 70 to ATO 116 Cutter Blades, Mounts & Detectors", image: "assets/spares/pages/page_51.png" },
+      { pageNumber: 52, title: "Toyoda Airjet Accessories III", subtitle: "ATO 117 to ATO 150 Flanges, Bearings, Cams & Knives", image: "assets/spares/pages/page_52.png" },
+      { pageNumber: 53, title: "Toyoda Airjet Accessories IV", subtitle: "ATO 151 to ATO 168 Circuit Boards, Panels, Displays & Sensors", image: "assets/spares/pages/page_53.png" }
     ]
   },
   {
@@ -184,7 +184,7 @@ window.SKE_SPARES_DATA = [
     name: "Temple Ring",
     category: "Selvedge & Cloth Guiding",
     badge: "1 Page",
-    description: "Brass & Steel Temple Cylinders and Rings (TR 1 to TR 4) for Picanol (RPT), Somet (RST), Vamatex (RVT), Pignone (RNT), Dornier (RDT), Toyota (ATO), Tsudakoma (ATS), Sulzer (PST).",
+    description: "Brass & Steel Temple Cylinders and Rings (TR 1 to TR 4) for Picanol (RPT), Somet (RST), Vamatex (RVT), Pignone (RNT), Dornier (RDT), Toyoda (ATO), Tsudakoma (ATS), Sulzer (PST).",
     icon: "circle",
     pages: [
       { pageNumber: 59, title: "Temple Rings & Cylinders", subtitle: "Complete Temple Assemblies & Rings for all Loom Brands", image: "assets/spares/pages/page_59.png" }
