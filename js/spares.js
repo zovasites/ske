@@ -130,7 +130,7 @@ function renderSparesBrandList(searchQuery = '') {
       return lower.includes(q) || (cleanQ.length > 1 && lower.replace(/[\s\-_]/g, '').includes(cleanQ));
     };
 
-    brands = brands.filter(b => 
+    brands = brands.filter(b =>
       matches(b.name) ||
       matches(b.category) ||
       matches(b.description) ||
