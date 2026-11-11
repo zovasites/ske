@@ -7,6 +7,7 @@ let currentBrand = null;
 let currentPageIndex = 0;
 let currentZoom = 1.0;
 let isDragging = false;
+let isFitWidth = false;
 let startX, startY, scrollLeft, scrollTop;
 
 function initSparesCatalog() {
@@ -18,6 +19,7 @@ function initSparesCatalog() {
   const zoomInBtn = document.getElementById('spares-zoom-in-btn');
   const zoomOutBtn = document.getElementById('spares-zoom-out-btn');
   const zoomResetBtn = document.getElementById('spares-zoom-reset-btn');
+  const fitWidthBtn = document.getElementById('spares-fit-width-btn');
   const fullscreenBtn = document.getElementById('spares-fullscreen-btn');
   const viewerStage = document.getElementById('spares-viewer-stage');
 
@@ -57,16 +59,25 @@ function initSparesCatalog() {
     zoomOutBtn.addEventListener('click', () => setZoom(currentZoom - 0.25));
   }
   if (zoomResetBtn) {
-    zoomResetBtn.addEventListener('click', () => setZoom(1.0));
+    zoomResetBtn.addEventListener('click', () => {
+      if (isFitWidth) toggleFitWidth();
+      setZoom(1.0);
+    });
+  }
+  if (fitWidthBtn) {
+    fitWidthBtn.addEventListener('click', toggleFitWidth);
   }
   if (fullscreenBtn) {
     fullscreenBtn.addEventListener('click', toggleViewerFullscreen);
   }
 
-  // Pan / Dragging when zoomed
+  // Pan / Dragging when zoomed or scrollable
   if (viewerStage) {
     viewerStage.addEventListener('mousedown', (e) => {
-      if (currentZoom <= 1.0) return;
+      const canScroll = viewerStage.scrollWidth > viewerStage.clientWidth ||
+                        viewerStage.scrollHeight > viewerStage.clientHeight ||
+                        currentZoom > 1.0;
+      if (!canScroll) return;
       isDragging = true;
       viewerStage.classList.add('grabbing');
       startX = e.pageX - viewerStage.offsetLeft;
@@ -95,6 +106,21 @@ function initSparesCatalog() {
       viewerStage.scrollLeft = scrollLeft - walkX;
       viewerStage.scrollTop = scrollTop - walkY;
     });
+
+    // Double-click to toggle fit-width / maximum size
+    viewerStage.addEventListener('dblclick', (e) => {
+      if (e.target.closest('.spares-stage-nav-btn')) return;
+      toggleFitWidth();
+    });
+
+    // Wheel zoom with Ctrl key
+    viewerStage.addEventListener('wheel', (e) => {
+      if (e.ctrlKey) {
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 0.25 : -0.25;
+        setZoom(currentZoom + delta);
+      }
+    }, { passive: false });
   }
 
   // Keyboard navigation
@@ -214,6 +240,8 @@ function openSparesBrand(brandId) {
 function closeBrandViewer() {
   const listView = document.getElementById('spares-brand-list-view');
   const viewerView = document.getElementById('spares-viewer-view');
+  const viewerStage = document.getElementById('spares-viewer-stage');
+  const fitWidthBtn = document.getElementById('spares-fit-width-btn');
 
   if (viewerView) {
     viewerView.classList.remove('fullscreen-mode');
@@ -222,6 +250,10 @@ function closeBrandViewer() {
   if (listView) {
     listView.classList.remove('hidden');
   }
+
+  isFitWidth = false;
+  if (viewerStage) viewerStage.classList.remove('fit-width');
+  if (fitWidthBtn) fitWidthBtn.classList.remove('active');
 
   currentBrand = null;
   currentPageIndex = 0;
@@ -302,8 +334,16 @@ function renderCurrentPage() {
     whatsappBtn.href = `https://wa.me/919843227289?text=${msg}`;
   }
 
-  // Reset Zoom on page change
-  setZoom(1.0);
+  // Scroll stage back to top on page change
+  const viewerStage = document.getElementById('spares-viewer-stage');
+  if (viewerStage) {
+    viewerStage.scrollTop = 0;
+  }
+
+  // Reset Zoom on page change if not in fit-width mode
+  if (!isFitWidth) {
+    setZoom(1.0);
+  }
 }
 
 /**
@@ -325,23 +365,52 @@ function goToSparesPage(index) {
 }
 
 /**
- * 7. Zoom Controls
+ * 7. Zoom Controls (Max 500% size for clear reading)
  */
 function setZoom(val) {
-  currentZoom = Math.min(Math.max(val, 0.75), 3.0);
+  currentZoom = Math.min(Math.max(val, 0.5), 5.0);
   const wrap = document.getElementById('spares-page-image-wrap');
   const zoomText = document.getElementById('spares-zoom-level');
+  const viewerStage = document.getElementById('spares-viewer-stage');
+  const fitWidthBtn = document.getElementById('spares-fit-width-btn');
 
   if (wrap) {
     wrap.style.transform = `scale(${currentZoom})`;
+    wrap.style.transformOrigin = currentZoom > 1.0 ? 'top center' : 'center center';
   }
   if (zoomText) {
     zoomText.textContent = `${Math.round(currentZoom * 100)}%`;
   }
+  // If zooming away from 1.0 while fit-width was on, deactivate fit-width class so scale works cleanly
+  if (currentZoom !== 1.0 && isFitWidth) {
+    isFitWidth = false;
+    if (viewerStage) viewerStage.classList.remove('fit-width');
+    if (fitWidthBtn) fitWidthBtn.classList.remove('active');
+  }
 }
 
 /**
- * 8. Toggle Fullscreen Viewer
+ * 8. Toggle Fit Width / Maximum Size Mode
+ */
+function toggleFitWidth() {
+  const viewerStage = document.getElementById('spares-viewer-stage');
+  const fitWidthBtn = document.getElementById('spares-fit-width-btn');
+  const zoomText = document.getElementById('spares-zoom-level');
+  if (!viewerStage) return;
+
+  isFitWidth = !isFitWidth;
+  viewerStage.classList.toggle('fit-width', isFitWidth);
+  if (fitWidthBtn) {
+    fitWidthBtn.classList.toggle('active', isFitWidth);
+  }
+  setZoom(1.0);
+  if (zoomText) {
+    zoomText.textContent = isFitWidth ? 'Fit W' : '100%';
+  }
+}
+
+/**
+ * 9. Toggle Fullscreen Viewer
  */
 function toggleViewerFullscreen() {
   const viewerView = document.getElementById('spares-viewer-view');
@@ -358,3 +427,4 @@ window.closeBrandViewer = closeBrandViewer;
 window.changeSparesPage = changeSparesPage;
 window.goToSparesPage = goToSparesPage;
 window.setZoom = setZoom;
+window.toggleFitWidth = toggleFitWidth;

@@ -551,9 +551,14 @@ body {
   }
 
   .spares-viewer-stage {
-    min-height: 320px;
-    max-height: 65vh;
+    min-height: 480px;
+    height: 75vh;
+    max-height: 80vh;
     padding: 0.75rem;
+  }
+
+  .spares-page-image {
+    max-height: 72vh;
   }
 
   .spares-stage-nav-btn {
@@ -777,8 +782,13 @@ body {
   }
 
   .spares-viewer-stage {
-    min-height: 260px;
-    max-height: 55vh;
+    min-height: 380px;
+    height: 70vh;
+    max-height: 75vh;
+  }
+
+  .spares-page-image {
+    max-height: 68vh;
   }
 
   .spares-stage-nav-btn {

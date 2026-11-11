@@ -46,8 +46,8 @@
   <!-- Core Stylesheets -->
   <link rel="stylesheet" href="css/variables.css?v=16">
   <link rel="stylesheet" href="css/style.css?v=20">
-  <link rel="stylesheet" href="css/spares.css?v=15">
-  <link rel="stylesheet" href="css/responsive.css?v=16">
+  <link rel="stylesheet" href="css/spares.css?v=17">
+  <link rel="stylesheet" href="css/responsive.css?v=17">
 
   <!-- Schema.org Structured Data (JSON-LD) for LocalBusiness -->
   <script type="application/ld+json">
@@ -892,6 +892,15 @@
                 <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
             </button>
+            <button type="button" class="spares-tool-btn" id="spares-fit-width-btn" title="Toggle Fit Width / Maximum Size"
+              aria-label="Toggle Fit Width">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="7 8 3 12 7 16"></polyline>
+                <polyline points="17 8 21 12 17 16"></polyline>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+              </svg>
+            </button>
             <button type="button" class="spares-tool-btn" id="spares-zoom-reset-btn" title="Reset Zoom"
               aria-label="Reset Zoom">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -919,7 +928,7 @@
         </div>
 
         <!-- Main Image Stage -->
-        <div class="spares-viewer-stage" id="spares-viewer-stage" title="Click and drag to pan when zoomed in">
+        <div class="spares-viewer-stage" id="spares-viewer-stage" title="Click and drag to pan • Double-click to toggle maximum width">
           <button type="button" class="spares-stage-nav-btn prev" id="spares-prev-page-btn" aria-label="Previous Page"
             title="Previous Page">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
@@ -2622,7 +2631,7 @@
   <!-- JavaScript Modules -->
   <script src="js/products-data.js?v=18"></script>
   <script src="js/spares-data.js?v=13"></script>
-  <script src="js/spares.js?v=13"></script>
+  <script src="js/spares.js?v=14"></script>
   <script src="js/enquiry-service.js?v=13"></script>
   <script src="js/map-animation.js?v=15"></script>
   <script src="js/app.js?v=13"></script>
