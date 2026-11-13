@@ -522,3 +522,4 @@ window.goToResourcePage = goToResourcePage;
 window.setResourceZoom = setResourceZoom;
 window.toggleResourceFitWidth = toggleResourceFitWidth;
 window.toggleResourceFullscreen = toggleResourceFullscreen;
+
