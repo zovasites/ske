@@ -432,9 +432,9 @@
 }
 
 .resource-page-thumb-card:hover {
-  border-color: #dc2626;
+  border-color: #2563eb;
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.15);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
 }
 
 .resource-page-thumb-wrap {
@@ -461,7 +461,7 @@
 .resource-page-thumb-num {
   font-size: 0.75rem;
   font-weight: 800;
-  color: #dc2626;
+  color: #2563eb;
   display: block;
 }
 
