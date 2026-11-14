@@ -49,7 +49,7 @@ window.SKE_PRODUCTS = [
     condition: "new-used",
     conditionLabel: "New & Used",
     badgeClass: "badge-new-used",
-    image: "assets/images/projectile-loom.jpg?v=10",
+    image: "assets/images/projectile-loom.jpg?v=11",
     shortDescription: "Heavy-duty projectile weaving loom available in brand-new and inspected used conditions for technical textiles and wide-width fabrics.",
     specifications: {
       "Application": "Technical Textiles, Wide Width Fabrics, Denim & Canvas",
