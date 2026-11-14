@@ -169,8 +169,8 @@
 
 .resource-book-card:hover {
   transform: translateY(-4px);
-  border-color: #dc2626;
-  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(220, 38, 38, 0.1);
+  border-color: #2563eb;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(37, 99, 235, 0.1);
 }
 
 /* Book Cover Preview */
@@ -335,7 +335,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: #dc2626;
+  background: #2563eb;
   color: #ffffff;
   padding: 0.625rem 1rem;
   border-radius: 8px;
@@ -348,9 +348,9 @@
 }
 
 .resource-btn-read:hover {
-  background: #b91c1c;
+  background: #1d4ed8;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
   color: #ffffff;
 }
 
